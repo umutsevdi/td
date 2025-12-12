@@ -47,18 +47,18 @@ func Write(c *cli.Context, m MessageType, v ...string) {
 		switch m {
 		case MT_UPDATE:
 			ct.ChangeColor(ct.Blue, false, ct.None, false)
+			fmt.Println(strings.Join(v, join))
 		case MT_INFO:
-			ct.ChangeColor(ct.Cyan, false, ct.None, false)
+			ct.ChangeColor(ct.Green, false, ct.None, false)
+			fmt.Println(strings.Join(v, join))
 		case MT_ERROR:
 			ct.ChangeColor(ct.Red, false, ct.None, false)
-			fmt.Print("Error: ")
-			ct.ResetColor()
+			fmt.Fprintln(os.Stderr, "Error: ", strings.Join(v, join))
 		}
+		ct.ResetColor()
+		return
 	}
 	fmt.Println(strings.Join(v, join))
-	if c.Bool("color") {
-		ct.ResetColor()
-	}
 }
 
 // Lists all todo items
@@ -85,7 +85,7 @@ func TdList(c *cli.Context) error {
 				todo.MakeOutput(c.Bool("color"), c.Bool("nerd"))
 			}
 		} else {
-			Write(c, MT_INFO, "There is no todo to show.")
+			Write(c, MT_INFO, "You have completed all of your tasks!")
 		}
 	}
 	return nil
@@ -342,7 +342,7 @@ func TdSearch(c *cli.Context) error {
 			todo.MakeOutput(c.Bool("color"), c.Bool("nerd"))
 		}
 	} else {
-		Write(c, MT_INFO, "There's no todo to show.")
+		Write(c, MT_INFO, "You have completed all of your tasks!")
 	}
 	return nil
 }

@@ -19,7 +19,7 @@ func main() {
 		},
 		{
 			Name:  "Umut Sevdi",
-			Email: "sevdiumut@gmail.com",
+			Email: "mail@umutsevdi.com",
 		},
 	}
 	app.Flags = []cli.Flag{
@@ -72,8 +72,11 @@ func main() {
 		{
 			Name:    "modify",
 			Aliases: []string{"m"},
-			Usage:   "Modify the text or any property of an existing todo",
-			Action:  cmd.TdModify,
+			Usage: `Modify the text or any property of an existing todo
+    - -d | --desc   : Description
+    - -D | --date   : A string that is valid according to \[parser.ParseDate]
+    - -p | --period : A string that contains the period`,
+			Action: cmd.TdModify,
 		},
 		{
 			Name:    "toggle",

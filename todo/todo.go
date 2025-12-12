@@ -42,7 +42,7 @@ func (t *Todo) MakeOutput(useColor bool, isNerd bool) {
 
 	hashtagReg := regexp.MustCompile(`#[^\\s]*`)
 
-	fmt.Printf("%02d | ", t.ID)
+	fmt.Printf("%02d │ ", t.ID)
 	if useColor {
 		ct.ChangeColor(color, false, ct.None, false)
 	}
@@ -63,13 +63,13 @@ func (t *Todo) MakeOutput(useColor bool, isNerd bool) {
 		}
 		pos = token[1]
 	}
-	fmt.Printf("%-25s", t.Desc[pos:])
+	fmt.Printf("%-30s", t.Desc[pos:])
 	if !t.Deadline.IsZero() {
 		if (t.Deadline.Minute() == 59 && t.Deadline.Hour() == 23) ||
 			(t.Deadline.Minute() == 0 && t.Deadline.Hour() == 0) {
-			fmt.Print(printer.Sign(printer.DEADLINE, isNerd), t.Deadline.Format("Mon, 02 Jan"))
+			fmt.Print("│", printer.Sign(printer.DEADLINE, isNerd), t.Deadline.Format("Mon, 02 Jan"))
 		} else {
-			fmt.Print(printer.Sign(printer.DEADLINE, isNerd), t.Deadline.Format("Mon, 02 Jan 15:04"))
+			fmt.Print("│", printer.Sign(printer.DEADLINE, isNerd), t.Deadline.Format("Mon, 02 Jan 15:04"))
 		}
 	}
 	if t.Period != 0 {
